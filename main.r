@@ -29,10 +29,4 @@ anim <- p +
         transition_time(year) + 
         labs(title = "Year: {frame_time}")
 
-
 plot(p)
-
-
-
-
-
