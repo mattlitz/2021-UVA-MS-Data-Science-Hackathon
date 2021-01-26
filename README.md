@@ -6,8 +6,7 @@ Plot 1 presents the GDP per capita of countries plotted against their CO2 emissi
 
 ![Plot 1:](plot1_co2_per_capita.gif)
 
-&nbsp;
-Plot 1 focuses on the USA and CHINA and presents the GDP per capita of countries plotted against their percentage of electricity production from coal over time.  Likewise, the bubble size represents the emission of CO2 from the whole country.
+Plot 2 focuses on the USA and CHINA and presents the GDP per capita of countries plotted against their percentage of electricity production from coal over time.  Likewise, the bubble size represents the emission of CO2 from the whole country.
 &nbsp;
 
 ![Plot 2:](plot2_electricity_from_coal.gif)
