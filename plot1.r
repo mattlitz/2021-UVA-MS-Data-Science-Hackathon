@@ -28,9 +28,3 @@ p <- ggplot(joined_df, aes(x=gdp_per_cap, y=co2_per_capita, size = co2, colour=r
 anim <- p +
         transition_time(year) + 
         labs(title = "Year: {frame_time}")
-
-plot(p)
-
-
-###############PLOT 2##########################
-

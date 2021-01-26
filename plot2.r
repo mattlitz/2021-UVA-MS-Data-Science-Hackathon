@@ -8,38 +8,34 @@ elec_df <- read.csv("elec_pct.csv",header = TRUE)
 
 #calculate GDP per capita
 co2_df$gdp_per_cap = co2_df$gdp / co2_df$population
-
-#fil_df <-filter((co2_df), year == 1975)
-#fil_df <- filter((fil_df), year != "")
 fil_df <- filter((co2_df), year != "")
 
 #filter out every country except USA and CHN
 elec_df <- filter((elec_df), a3 == "CHN" | a3 == "USA")
 
-#gather date columns
-
-wide_elec_df <- gather(elec_df,key = 'a3', value = 'X1960')
-write.csv(wide_elec_df,'elec_df.csv')
-print(wide_elec_df)
+#gather World Bank data by country and year
+wide_elec_df <- gather(elec_df,key='Country', value='Elec_Coal', X1961:X2015)
+colnames(wide_elec_df)[1] <- "Elec_Prod_Coal"
+colnames(wide_elec_df)[6] <- "year"
+wide_elec_df <- wide_elec_df[!is.na(wide_elec_df$Elec_Coal),]
+wide_elec_df <- wide_elec_df[c('a3','Elec_Coal','year')]
+wide_elec_df$year <- as.integer(gsub('X', '', wide_elec_df$year))
 
 #left join tables
-#joined_df <- left_join(x=fil_df, y= d.countries, by=NULL, copy=FALSE)
-#joined_df <- joined_df[!is.na(joined_df$region),]
+joined_df <- left_join(x=wide_elec_df, y= fil_df, by=NULL, copy=FALSE)
+joined_df <- joined_df[!is.na(joined_df$Elec_Coal),]
 
 #create scatterplot
-#p <- ggplot(joined_df, aes(x=gdp_per_cap, y=co2_per_capita, size = co2, colour=region)) +
-#     geom_point(alpha=0.7) + 
-#     ylim(0,80) + 
-#     scale_x_log10(name ="GDP per Capita, USD") + 
-#     ylab("CO2 per capita, metric tonnes")
+p <- ggplot(joined_df, aes(x=gdp_per_cap, y=Elec_Coal, size = co2, colour=country)) +
+     geom_point(alpha=0.7) + 
+     ylim(0,100) + 
+     scale_x_log10(name ="GDP per Capita, USD") + 
+     ylab("Percentage of Electricity Production from Coal")
 
 #animation
-#anim <- p +
-#        transition_time(year) + 
-#        labs(title = "Year: {frame_time}")
+anim <- p +
+        transition_time(year) + 
+        shadow_mark() + 
+        labs(title = "Year: {frame_time}")
 
-#plot(p)
-
-
-###############PLOT 2##########################
 
